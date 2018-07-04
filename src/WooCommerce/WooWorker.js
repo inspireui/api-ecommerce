@@ -4,7 +4,6 @@
  * @format
  */
 
-import { Constants } from "@common";
 import WooCommerceAPI from "./WooCommerceAPI";
 
 export default class WooWorker {
@@ -128,10 +127,10 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static productSticky = async (per_page, page) => {
+  static productSticky = async (per_page, page, tagIdBanner = 273) => {
     try {
       const response = await this._api.get("products", {
-        tag: Constants.tagIdBanner,
+        tag: tagIdBanner,
         per_page,
         page
       });
@@ -140,13 +139,18 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static getAllProducts = async (per_page, page) => {
+  static getAllProducts = async (
+    per_page,
+    page,
+    order = "desc",
+    orderby = "date"
+  ) => {
     try {
       const data = {
         per_page,
         page,
-        order: Constants.PostList.order,
-        orderby: Constants.PostList.orderby
+        order,
+        orderby
       };
       const response = await this._api.get("products", data);
       return response.json();
