@@ -15,7 +15,8 @@ export default class WooWorker {
     consumerSecret,
     wp_api = true,
     version = "wc/v2",
-    queryStringAuth = true
+    queryStringAuth = true,
+    language,
   }) => {
     try {
       this._api = new WooCommerceAPI({
@@ -24,7 +25,8 @@ export default class WooWorker {
         consumerSecret,
         wp_api,
         version,
-        queryStringAuth
+        queryStringAuth,
+        language,
       });
     } catch (error) {
       console.log(error);
@@ -36,14 +38,14 @@ export default class WooWorker {
         hide_empty: true,
         per_page: 100,
         order: "desc",
-        orderby: "count"
+        orderby: "count",
       });
       return response.json();
     } catch (err) {
       console.log(err);
     }
   };
-  static getCustomerByEmail = async email => {
+  static getCustomerByEmail = async (email) => {
     try {
       const response = await this._api.get("customers", { email });
       return response.json();
@@ -51,7 +53,7 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static getCustomerById = async id => {
+  static getCustomerById = async (id) => {
     try {
       const response = await this._api.get(`customers/${id}`);
       return response.json();
@@ -65,7 +67,7 @@ export default class WooWorker {
         category,
         per_page,
         page,
-        purchasable: true
+        purchasable: true,
       });
       return response.json();
     } catch (err) {
@@ -87,7 +89,7 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static reviewsByProductId = async id => {
+  static reviewsByProductId = async (id) => {
     try {
       const response = await this._api.get(`products/${id}/reviews`);
       return response.json();
@@ -95,7 +97,7 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static createOrder = async data => {
+  static createOrder = async (data) => {
     try {
       const response = await this._api.post("orders", data);
       return response.json();
@@ -108,7 +110,7 @@ export default class WooWorker {
       const response = await this._api.get("products", {
         tag: tagId,
         per_page,
-        page
+        page,
       });
       return response.json();
     } catch (err) {
@@ -120,7 +122,7 @@ export default class WooWorker {
       const response = await this._api.get("products", {
         search: name,
         per_page,
-        page
+        page,
       });
       return response.json();
     } catch (err) {
@@ -132,7 +134,7 @@ export default class WooWorker {
       const response = await this._api.get("products", {
         tag: tagIdBanner,
         per_page,
-        page
+        page,
       });
       return response.json();
     } catch (err) {
@@ -150,7 +152,7 @@ export default class WooWorker {
         per_page,
         page,
         order,
-        orderby
+        orderby,
       };
       const response = await this._api.get("products", data);
       return response.json();
@@ -163,7 +165,7 @@ export default class WooWorker {
       const data = {
         customer: id,
         per_page,
-        page
+        page,
       };
       const response = await this._api.get("orders", data);
       return response.json();
@@ -210,7 +212,7 @@ export default class WooWorker {
     try {
       const data = {
         per_page,
-        page
+        page,
       };
       const response = await this._api.get(
         `products/${product.id}/variations`,
@@ -221,10 +223,10 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static getProductRelated = async product => {
+  static getProductRelated = async (product) => {
     try {
       const data = {
-        include: [product]
+        include: [product],
       };
       const response = await this._api.get("products", data);
       return response.json();

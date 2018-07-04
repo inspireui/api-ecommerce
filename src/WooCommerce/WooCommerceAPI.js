@@ -39,6 +39,7 @@ WooCommerceAPI.prototype._setDefaultsOptions = function(opt) {
   this.queryStringAuth = opt.queryStringAuth || true;
   this.port = opt.port || "";
   this.timeout = opt.timeout || 10;
+  this.language = opt.language || "eng";
 };
 
 WooCommerceAPI.prototype._normalizeQueryString = function(url) {
@@ -70,7 +71,7 @@ WooCommerceAPI.prototype._getUrl = function(endpoint) {
   let url = this.url.slice(-1) === "/" ? this.url : `${this.url}/`;
   const api = this.wpAPI ? `${this.wpAPIPrefix}/` : "wp-json/";
 
-  url = `${url + api + this.version}/${endpoint}`;
+  url = `${url + api + this.version}/${endpoint}/`;
 
   // Include port.
   if (this.port !== "") {
@@ -87,9 +88,9 @@ WooCommerceAPI.prototype._getOAuth = function() {
   const data = {
     consumer: {
       public: this.consumerKey,
-      secret: this.consumerSecret
+      secret: this.consumerSecret,
     },
-    signature_method: "HMAC-SHA256"
+    signature_method: "HMAC-SHA256",
   };
 
   if (["v1", "v2"].indexOf(this.version) > -1) data.last_ampersand = false;
@@ -107,14 +108,17 @@ WooCommerceAPI.prototype.join = function(obj, separator) {
   return arr.join(separator);
 };
 
-WooCommerceAPI.prototype._request = async function(method, endpoint, data) {
+WooCommerceAPI.prototype._request = async function(method, endpoint, newData) {
   const url = this._getUrl(endpoint);
-
+  let data = {
+    ...newData,
+    lang: this.language,
+  };
   const params = {
     url,
     method,
     encoding: this.encoding,
-    timeout: this.timeout
+    timeout: this.timeout,
   };
 
   if (this.isSsl) {
@@ -122,12 +126,12 @@ WooCommerceAPI.prototype._request = async function(method, endpoint, data) {
       params.qs = {
         consumer_key: this.consumerKey,
         consumer_secret: this.consumerSecret,
-        ...data
+        ...data,
       };
     } else {
       params.auth = {
         user: this.consumerKey,
-        pass: this.consumerSecret
+        pass: this.consumerSecret,
       };
     }
 
@@ -138,12 +142,12 @@ WooCommerceAPI.prototype._request = async function(method, endpoint, data) {
     params.qs = this._getOAuth().authorize({
       url,
       method,
-      data
+      data,
     });
   } else if (method == "POST") {
     params.qs = this._getOAuth().authorize({
       url,
-      method
+      method,
     });
   }
 
@@ -156,7 +160,7 @@ WooCommerceAPI.prototype._request = async function(method, endpoint, data) {
   } else if (method == "POST") {
     params.headers = {
       Accept: "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     };
     params.body = JSON.stringify(data);
   }
