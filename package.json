@@ -3,6 +3,14 @@
   "description": "api for ecommerce",
   "author": "InpireUI",
   "version": "0.0.1",
+  "homepage": "https://github.com/inspireui/api-ecommerce",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inspireui/api-ecommerce"
+  },
+  "bugs": {
+    "url": "https://github.com/inspireui/api-ecommerce/issues"
+  },
   "dependencies": {
     "oauth-1.0a": "1.0.1"
   }
