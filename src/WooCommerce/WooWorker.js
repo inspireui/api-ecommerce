@@ -171,19 +171,19 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  createNewOrder = (data, callback, failCallBack) => {
-    this._api
-      .post("orders", data)
-      .then(response => response.json())
-      .then(json => {
-        if (json.code === undefined) callback(json);
-        else {
-          // console.log(JSON.stringify(json))
-          toast(JSON.stringify(json.message));
-          typeof failCallBack === "function" && failCallBack();
-        }
-      })
-      .catch();
+  static createNewOrder = async (data, callback, failCallBack) => {
+    try {
+      const response = await this._api.post("orders", data);
+      const json = await response.json();
+
+      if (json.code === undefined) {
+        callback(json);
+      } else {
+        typeof failCallBack === "function" && failCallBack();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   static getPayments = async () => {
     try {
@@ -193,19 +193,18 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  setOrderStatus = (orderId, status, callback) => {
-    this._api
-      .post(`orders/${orderId}`, { status })
-      .then(json => {
-        if (json.code === undefined) callback(json);
-        else {
-          alert(JSON.stringify(json.code));
-          // console.log(JSON.stringify(json))
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  static setOrderStatus = async (orderId, status, callback) => {
+    try {
+      const response = await this._api.post(`orders/${orderId}`, { status });
+      const json = await response.json();
+      if (json.code === undefined) {
+        callback(JSON.stringify(json.code));
+      } else {
+        console.log(json);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   static productVariant = async (product, per_page, page) => {
     try {
