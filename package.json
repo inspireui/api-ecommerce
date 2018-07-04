@@ -1,0 +1,9 @@
+{
+  "name": "api-ecommerce",
+  "description": "api for ecommerce",
+  "author": "InpireUI",
+  "version": "0.0.1",
+  "dependencies": {
+    "oauth-1.0a": "1.0.1"
+  }
+}
