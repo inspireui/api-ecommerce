@@ -1,3 +1,4 @@
 import WooWorker from "./src/WooCommerce/WooWorker";
-
-export { WooWorker };
+import AuthWorker from "./src/Authentication/AuthWorker";
+ 
+export { WooWorker, AuthWorker };
