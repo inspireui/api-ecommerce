@@ -248,4 +248,12 @@ export default class WooWorker {
       console.log(err);
     }
   };
+ static getProductId = async productId => {
+    try {
+      const response = await this._api.get('products/' + productId)
+      return await response.json()
+    } catch (err) {
+      console.log(err)
+    }
+  },
 }
