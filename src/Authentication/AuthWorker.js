@@ -3,7 +3,7 @@
 import { AsyncStorage } from "react-native";
 import * as firebase from "firebase";
 import { remove, findIndex } from "lodash";
-import WordpressApi from "./WordpressApi";
+import WordpressApi from "./WordpressAPI";
 
 const KEYS = {
   email: "_Email",
