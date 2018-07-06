@@ -248,12 +248,29 @@ export default class WooWorker {
       console.log(err);
     }
   };
- static getProductId = async productId => {
+  static getProductId = async productId => {
     try {
       const response = await this._api.get('products/' + productId)
       return await response.json()
     } catch (err) {
       console.log(err)
     }
-  },
+  };
+
+  static setBookingID = (orderId, bookID, callback) => {
+    try {
+      this._api.post('orders/' + orderId, { 'Booking ID': bookID })
+        .then(json => {
+          if (json.code === undefined) callback(json)
+          else {
+            alert(JSON.stringify(json.code))
+            // console.log(JSON.stringify(json))
+          }
+        })
+        .catch(error => console.log(error))
+    } catch (err) {
+      console.log(err)
+    }
+  };
+
 }
