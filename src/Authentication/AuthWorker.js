@@ -261,7 +261,11 @@ export default class AuthWorker {
    */
   static saveUser = async (userData = {}, email) => {
     try {
-      await AsyncStorage.setItem(KEYS.user, JSON.stringify(userData));
+      const isExisted = AsyncStorage.getItem(KEYS.user);
+      if(isExisted != null){
+        await AsyncStorage.removeItem(KEYS.user)
+        await AsyncStorage.setItem(KEYS.user, JSON.stringify(userData));
+      }
       await AsyncStorage.setItem(KEYS.email, email);
     } catch (error) {
       // console.log(error);
