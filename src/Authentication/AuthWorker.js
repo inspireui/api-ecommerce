@@ -182,7 +182,7 @@ export default class AuthWorker {
         wordpressLoggined.status == "ok"
       ) {
         const userData = wordpressLoggined;
-        AuthWorker.saveUser(userData.user, email);
+        AuthWorker.saveUser(userData, email);
 
         // if enable user also save to Firebase
         if (this._useFirebase) {
@@ -191,7 +191,7 @@ export default class AuthWorker {
             .signInWithEmailAndPassword(email, password)
             .then(() => {
               if (typeof callBackFunc === "function") {
-                callBackFunc();
+                callBackFunc(userData);
               }
               return true;
             })
@@ -213,7 +213,7 @@ export default class AuthWorker {
               }
             });
         } else if (typeof callBackFunc === "function") {
-          callBackFunc();
+          callBackFunc(userData);
         }
       } else if (typeof onError === "function") {
         onError({ message: wordpressLoggined.error });

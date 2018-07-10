@@ -2,7 +2,6 @@
 
 import React, { Component } from "react";
 import { Platform } from "react-native";
-import { warn } from "@common";
 
 /**
  * init class API
