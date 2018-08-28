@@ -6,7 +6,7 @@ We used in react native app
 ## Install
 
 ```
-    yarn add api-ecommerce
+yarn add api-ecommerce
 ```
 
 ## Quick Start
