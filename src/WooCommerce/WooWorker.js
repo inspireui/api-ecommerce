@@ -242,9 +242,10 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static getShippingMethod = async () => {
+  static getShippingMethod = async zoneId => {
+    zoneId = zoneId || 1;
     try {
-      const response = await this._api.get("shipping/zones/1/methods");
+      const response = await this._api.get("shipping/zones/" + zoneId + "/methods");
       return response.json();
     } catch (err) {
       console.log(err);
