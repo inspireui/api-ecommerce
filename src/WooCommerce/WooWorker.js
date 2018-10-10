@@ -290,4 +290,18 @@ export default class WooWorker {
     }
   };
 
+  static searchProducts = async (name, per_page, page, filter = {}) => {
+    try {
+      const response = await this._api.get("products", {
+        search: name,
+        per_page,
+        page,
+        ..filter
+      });
+      return response.json();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 }
