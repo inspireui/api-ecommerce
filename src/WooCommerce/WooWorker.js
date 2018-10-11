@@ -117,12 +117,13 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static productsByName = async (name, per_page, page) => {
+  static productsByName = async (name, per_page, page, filter={}) => {
     try {
       const response = await this._api.get("products", {
         search: name,
         per_page,
         page,
+        ...filter
       });
       return response.json();
     } catch (err) {
@@ -283,20 +284,6 @@ export default class WooWorker {
         per_page: 100,
         order: "desc",
         orderby: "count",
-      });
-      return response.json();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  static searchProducts = async (name, per_page, page, filter = {}) => {
-    try {
-      const response = await this._api.get("products", {
-        search: name,
-        per_page,
-        page,
-        ..filter
       });
       return response.json();
     } catch (err) {
