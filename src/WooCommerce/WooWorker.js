@@ -117,13 +117,13 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static productsByName = async (name, per_page, page, filter={}) => {
+  static productsByName = async (name, per_page, page, filter = {}) => {
     try {
       const response = await this._api.get("products", {
         search: name,
         per_page,
         page,
-        ...filter
+        ...filter,
       });
       return response.json();
     } catch (err) {
@@ -146,7 +146,8 @@ export default class WooWorker {
     per_page,
     page,
     order = "desc",
-    orderby = "date"
+    orderby = "date",
+    on_sale = null
   ) => {
     try {
       const data = {
@@ -155,6 +156,9 @@ export default class WooWorker {
         order,
         orderby,
       };
+      if (on_sale) {
+        data.on_sale = true;
+      }
       const response = await this._api.get("products", data);
       return response.json();
     } catch (err) {
@@ -243,37 +247,40 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static getShippingMethod = async zoneId => {
+  static getShippingMethod = async (zoneId) => {
     zoneId = zoneId || 1;
     try {
-      const response = await this._api.get("shipping/zones/" + zoneId + "/methods");
+      const response = await this._api.get(
+        "shipping/zones/" + zoneId + "/methods"
+      );
       return response.json();
     } catch (err) {
       console.log(err);
     }
   };
-  static getProductId = async productId => {
+  static getProductId = async (productId) => {
     try {
-      const response = await this._api.get('products/' + productId)
-      return await response.json()
+      const response = await this._api.get("products/" + productId);
+      return await response.json();
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
   static setBookingID = (orderId, bookID, callback) => {
     try {
-      this._api.post('orders/' + orderId, { 'Booking ID': bookID })
-        .then(json => {
-          if (json.code === undefined) callback(json)
+      this._api
+        .post("orders/" + orderId, { "Booking ID": bookID })
+        .then((json) => {
+          if (json.code === undefined) callback(json);
           else {
-            alert(JSON.stringify(json.code))
+            alert(JSON.stringify(json.code));
             // console.log(JSON.stringify(json))
           }
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error));
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
@@ -290,5 +297,4 @@ export default class WooWorker {
       console.log(err);
     }
   };
-
 }
