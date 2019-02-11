@@ -39,7 +39,7 @@ WooCommerceAPI.prototype._setDefaultsOptions = function(opt) {
   this.queryStringAuth = opt.queryStringAuth || true;
   this.port = opt.port || "";
   this.timeout = opt.timeout || 10;
-  this.language = opt.language || "eng";
+  this.language = opt.language || "en";
 };
 
 WooCommerceAPI.prototype._normalizeQueryString = function(url) {
