@@ -68,6 +68,7 @@ export default class WooWorker {
         per_page,
         page,
         purchasable: true,
+        status: "publish"
       });
       return response.json();
     } catch (err) {
@@ -109,6 +110,7 @@ export default class WooWorker {
     try {
       const response = await this._api.get("products", {
         tag: tagId,
+        status: "publish",
         per_page,
         page,
       });
@@ -121,6 +123,7 @@ export default class WooWorker {
     try {
       const response = await this._api.get("products", {
         search: name,
+        status: "publish",
         per_page,
         page,
         ...filter,
@@ -134,6 +137,7 @@ export default class WooWorker {
     try {
       const response = await this._api.get("products", {
         tag: tagIdBanner,
+        status: "publish",
         per_page,
         page,
       });
