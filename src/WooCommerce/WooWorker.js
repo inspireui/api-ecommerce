@@ -324,4 +324,13 @@ export default class WooWorker {
       console.log(err);
     }
   };
+
+  static removeProductById = (productId) => {
+    try {
+      const response = await this._api.delete("products/" + productId);
+      return await response.json();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
