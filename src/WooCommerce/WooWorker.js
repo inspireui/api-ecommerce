@@ -327,10 +327,10 @@ export default class WooWorker {
 
   static removeProductById = async productId => {
     try {
-      const response = await this._api.delete("products/" + productId);
-      return await response.json();
+      const response = await this._api.delete(`products/${productId}`);
+      return response.json();
     } catch (err) {
-      console.log(err);
+      console.error(["err remove product", err]);
     }
   };
 }

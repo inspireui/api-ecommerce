@@ -138,7 +138,7 @@ WooCommerceAPI.prototype._request = async function(method, endpoint, newData) {
     if (this.verifySsl) {
       params.strictSSL = this.verifySsl;
     }
-  } else if (method == "GET") {
+  } else if (method == "GET" || method == 'DELETE') {
     params.qs = this._getOAuth().authorize({
       url,
       method,
