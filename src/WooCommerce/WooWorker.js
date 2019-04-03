@@ -76,14 +76,35 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static productsByCategoryTag = async (category, tag, per_page, page) => {
+  static productsByCategoryTag = async (
+    category,
+    tag,
+    featured,
+    onSale,
+    products,
+    per_page,
+    page
+  ) => {
     try {
       // only show product published
-      let params = { per_page, page, purchasable: true, status: "publish" };
+      let params = {
+        per_page,
+        page,
+        purchasable: true,
+        status: "publish",
+        orderby: "date",
+        order: "asc"
+      };
       if (category != "") {
         params = { ...params, category };
-      } else {
+      } else if (tag != "") {
         params = { ...params, tag };
+      } else if (featured) {
+        params = { ...params, featured };
+      } else if (onSale) {
+        params = { ...params, on_sale: onSale };
+      } else if (products && products.length > 0) {
+        params = { ...params, include: products };
       }
       const response = await this._api.get("products", params);
       return response.json();
@@ -115,10 +136,10 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static productsByTagId = async (tagId, per_page, page) => {
+  static productsByTagId = async (tag, per_page, page) => {
     try {
       const response = await this._api.get("products", {
-        tag: tagId,
+        tag,
         status: "publish",
         per_page,
         page
