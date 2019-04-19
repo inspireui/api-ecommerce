@@ -61,6 +61,14 @@ export default class WooWorker {
       console.log(err);
     }
   };
+  static getCustomers = async (id) => {
+    try {
+      const response = await this._api.get(`customers`);
+      return response.json();
+    } catch (err) {
+      console.log(err);
+    }
+  };
   static productsByCategoryId = async (category, per_page, page, filter) => {
     try {
       const response = await this._api.get("products", {
