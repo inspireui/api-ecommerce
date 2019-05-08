@@ -362,4 +362,13 @@ export default class WooWorker {
       console.error(["err remove product", err]);
     }
   };
+
+  static getOrderNotes = async orderId => {
+    try {
+      const response = await this._api.get(`orders/${orderId}/notes`);
+      return response.json();
+    } catch (err) {
+      console.error(["err get order notes", err]);
+    }
+  };
 }
