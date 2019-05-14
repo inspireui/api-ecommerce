@@ -378,7 +378,7 @@ export default class WooWorker {
       const response = await this._api.get(`orders/${orderId}/notes`);
       return response.json();
     } catch (err) {
-      console.error(["err get order notes", err]);
+      console.error(["err remove product", err]);
     }
   };
 }
