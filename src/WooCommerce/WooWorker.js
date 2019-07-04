@@ -13,7 +13,7 @@ export default class WooWorker {
     url,
     consumerKey,
     consumerSecret,
-    wp_api = true,
+    wpAPI = true,
     version = "wc/v2",
     queryStringAuth = true,
     language
@@ -23,7 +23,7 @@ export default class WooWorker {
         url,
         consumerKey,
         consumerSecret,
-        wp_api,
+        wpAPI,
         version,
         queryStringAuth,
         language
@@ -234,7 +234,7 @@ export default class WooWorker {
       if (json.id != 'undefined') {
         this._api.post(`orders/${json.id}`, {status: 'processing'});
       }
-      
+
       if (json.code === undefined) {
         callback(json);
       } else {

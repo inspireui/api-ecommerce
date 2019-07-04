@@ -19,7 +19,7 @@ componentDidMount() {
         url: "http://mstore.io",
         consumerKey: "ck_b7594bc4391db4b56c635fe6da1072a53ca4xxxx",
         consumerSecret: "cs_980b9edb120e15bd2a8b668cacc734f7ecaxxxx",
-        wp_api: true,
+        wpAPI: true,
         version: "wc/v2",
         queryStringAuth: true,
     });
