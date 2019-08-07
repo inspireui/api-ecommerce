@@ -101,7 +101,7 @@ export default class WooWorker {
         purchasable: true,
         status: "publish",
         orderby: "date",
-        order: "asc"
+        order: "desc"
       };
       if (category != "") {
         params = { ...params, category };
