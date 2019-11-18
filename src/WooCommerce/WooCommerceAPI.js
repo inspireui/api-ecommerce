@@ -68,9 +68,10 @@ WooCommerceAPI.prototype._normalizeQueryString = function(url) {
   return `${url.split("?")[0]}?${queryString}`;
 };
 
-WooCommerceAPI.prototype._getUrl = function(endpoint) {
+WooCommerceAPI.prototype._getUrl = function(endpoint, version) {
   let url = this.url.slice(-1) === "/" ? this.url : `${this.url}/`;
   const api = this.wpAPI ? `${this.wpAPIPrefix}/` : "wp-json/";
+  this.version = version ? version : "wc/v3";
 
   url = `${url + api + this.version}/${endpoint}/`;
 
@@ -112,8 +113,8 @@ WooCommerceAPI.prototype.join = function(obj, separator) {
   return arr.join(separator);
 };
 
-WooCommerceAPI.prototype._request = async function(method, endpoint, newData) {
-  const url = this._getUrl(endpoint);
+WooCommerceAPI.prototype._request = async function(method, endpoint, newData, version=null) {
+  const url = this._getUrl(endpoint, version);
   let data = {
     ...newData,
     lang: this.language,
@@ -179,8 +180,8 @@ WooCommerceAPI.prototype._request = async function(method, endpoint, newData) {
       );
 };
 
-WooCommerceAPI.prototype.get = async function(endpoint, data, callback) {
-  return await this._request("GET", endpoint, data, callback);
+WooCommerceAPI.prototype.get = async function(endpoint, data, version) {
+  return await this._request("GET", endpoint, data, version);
 };
 
 WooCommerceAPI.prototype.post = async function(endpoint, data, callback) {
