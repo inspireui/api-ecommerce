@@ -120,9 +120,9 @@ export default class WooWorker {
       console.log(err);
     }
   };
-  static reviewsByProductId = async id => {
+  static reviewsByProductId = async (id, version) => {
     try {
-      const response = await this._api.get(`products/${id}/reviews`);
+      const response = await this._api.get(`products/${id}/reviews`, undefined, version);
       return response.json();
     } catch (err) {
       console.log(err);
