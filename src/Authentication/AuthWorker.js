@@ -1,6 +1,6 @@
 /** @format */
 
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import * as firebase from "firebase";
 import { remove, findIndex } from "lodash";
 import WordpressApi from "./WordpressAPI";
