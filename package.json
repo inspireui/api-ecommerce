@@ -12,8 +12,9 @@
     "url": "https://github.com/inspireui/api-ecommerce/issues"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.7.1",
     "firebase": "^6.3.0",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "oauth-1.0a": "^2.2.6",
     "redux-actions": "^2.6.5",
     "crypto-js": "^3.1.9-1"
