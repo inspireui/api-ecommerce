@@ -420,4 +420,19 @@ export default class WooWorker {
       return err;
     }
   };
+
+  static uploadImage = async (fileName, base64File) => {
+    try {
+      const response = await this._api.post(`flutter/media`, {
+        "title":{
+          "rendered": fileName
+        },
+        media_attachment: base64File,
+      });
+      return response.json();
+    } catch (err) {
+      console.error(["err updateImage", err]);
+      return err;
+    }
+  };
 }
