@@ -429,10 +429,20 @@ export default class WooWorker {
         },
         media_attachment: base64File,
       });
-      return response.json();
+      return await response.json();
     } catch (err) {
-      console.error(["err updateImage", err]);
-      return err;
+      console.error(err);
+      throw err;
+    }
+  };
+
+  static createProduct = async (body) => {
+    try {
+      const response = await this._api.post(`flutter/product`, body);
+      return await response.json();
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
   };
 }
