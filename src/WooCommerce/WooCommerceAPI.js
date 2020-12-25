@@ -131,7 +131,7 @@ WooCommerceAPI.prototype._request = async function(method, endpoint, newData, ve
       params.qs = {
         consumer_key: this.consumerKey,
         consumer_secret: this.consumerSecret,
-        ...data,
+        ...(method == "GET" ? data : {}),
       };
     } else {
       params.auth = {
